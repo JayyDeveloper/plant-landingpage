@@ -5,289 +5,120 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About — SwiftLab</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body { background: #0a0a0f; color: #f5f5f7; overflow-x: hidden; }
-
-    .bg-orbs { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-    .orb { position: absolute; border-radius: 50%; filter: blur(130px); opacity: 0.25; }
-    .orb-1 { width: 500px; height: 500px; background: #007AFF; bottom: 100px; left: -100px; }
-    .orb-2 { width: 400px; height: 400px; background: #AF52DE; top: 80px; right: -80px; }
-
-    main { position: relative; z-index: 1; }
-
-    .nav {
-      background: rgba(10,10,15,0.65);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .nav-logo, .nav-links a { color: #f5f5f7; }
-    .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,0.1); color: #fff; }
-
-    .about-hero h1 { color: #f5f5f7; }
-    .about-hero p { color: rgba(245,245,247,0.6); }
-
-    /* Glass cards */
-    .about-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.09);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-    }
-    .about-card h2 { color: #f5f5f7; }
-    .about-card p { color: rgba(245,245,247,0.6); }
-
-    .topic-item { color: rgba(245,245,247,0.85); }
-
-    /* Social links */
-    .social-links {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      margin-top: 8px;
-    }
-    .social-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 600;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: rgba(245,245,247,0.8);
-      transition: all 0.15s;
-      cursor: pointer;
-    }
-    .social-btn:hover {
-      background: rgba(255,255,255,0.14);
-      color: #f5f5f7;
-      border-color: rgba(255,255,255,0.2);
-    }
-
-    /* Gradient avatar ring */
-    .about-avatar {
-      background: transparent;
-      padding: 3px;
-      background: linear-gradient(135deg, #007AFF, #AF52DE);
-    }
-    .avatar-inner {
-      width: 90px;
-      height: 90px;
-      background: linear-gradient(135deg, #1c1c3a, #0f1a3e);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 38px;
-    }
-
-    /* Timeline card */
-    .timeline { display: flex; flex-direction: column; gap: 0; }
-    .timeline-item {
-      display: flex;
-      gap: 16px;
-      padding: 16px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .timeline-item:last-child { border-bottom: none; }
-    .timeline-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--blue);
-      flex-shrink: 0;
-      margin-top: 6px;
-    }
-    .timeline-dot.purple { background: var(--purple); }
-    .timeline-dot.green  { background: var(--green); }
-    .timeline-dot.orange { background: var(--orange); }
-    .timeline-text strong {
-      display: block;
-      font-size: 15px;
-      font-weight: 600;
-      color: #f5f5f7;
-      margin-bottom: 2px;
-    }
-    .timeline-text span {
-      font-size: 13px;
-      color: rgba(245,245,247,0.45);
-    }
-
-    /* Stack section */
-    .stack-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 4px;
-    }
-    .stack-item {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      color: rgba(245,245,247,0.8);
-    }
-    .stack-icon { font-size: 20px; }
-
-    /* CTA card gradient */
-    .cta-card {
-      background: transparent;
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-    }
-    .cta-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(0,122,255,0.2), rgba(175,82,222,0.2));
-      z-index: 0;
-    }
-    .cta-card > * { position: relative; z-index: 1; }
-    .cta-card h2 { color: #f5f5f7; font-size: 22px; font-weight: 800; margin-bottom: 10px; }
-    .cta-card p { color: rgba(245,245,247,0.65); font-size: 15px; margin-bottom: 20px; }
-
-    .footer { background: rgba(255,255,255,0.03); border-top-color: rgba(255,255,255,0.08); }
-    .footer-logo { color: #f5f5f7; }
-    .footer-links a { color: rgba(245,245,247,0.5); }
-    .footer-links a:hover { color: #64b5f6; }
-    .footer-copy { color: rgba(245,245,247,0.25); border-top-color: rgba(255,255,255,0.06); }
-
-    @media (max-width: 600px) {
-      .stack-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-  </style>
 </head>
 <body>
-
-  <div class="bg-orbs">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-  </div>
 
   <nav class="nav">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
-        <span class="logo-icon">⌘</span>
+        <span class="icon">⌘</span>
         SwiftLab
       </a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="blog.html" class="hide-mobile">Tutorials</a></li>
+        <li><a href="blog.html">Tutorials</a></li>
         <li><a href="about.html" class="active">About</a></li>
-        <li><a href="blog.html" class="nav-cta">Browse All</a></li>
       </ul>
+      <div class="nav-actions">
+        <a href="blog.html" class="btn-pill dark">Browse All <span class="arrow">↗</span></a>
+      </div>
     </div>
   </nav>
 
-  <main>
+  <!-- Hero -->
+  <div class="about-hero-section">
+    <div class="section-eyebrow" style="margin-bottom:16px;">About SwiftLab</div>
+    <h1>Built for iOS<br>developers.</h1>
+    <p>No fluff, no filler — just practical tutorials on building polished iOS experiences.</p>
+    <div style="display:flex;gap:10px;justify-content:center;">
+      <a href="blog.html" class="btn-pill dark">Browse Tutorials <span class="arrow">↗</span></a>
+      <a href="#" class="btn-pill outline">Follow on Twitter</a>
+    </div>
+  </div>
 
-    <!-- Hero -->
-    <div class="about-hero">
-      <div class="about-avatar">
-        <div class="avatar-inner">🧑‍💻</div>
-      </div>
-      <h1>About SwiftLab</h1>
-      <p>A no-fluff iOS dev blog focused on practical techniques, polished UIs, and the craft of building apps people love.</p>
-      <div class="social-links">
-        <a class="social-btn" href="#">𝕏 Twitter</a>
-        <a class="social-btn" href="#">⬡ GitHub</a>
-        <a class="social-btn" href="#">✉ Contact</a>
+  <!-- Cards grid -->
+  <div class="about-grid">
+
+    <div class="info-card">
+      <h2>What is SwiftLab?</h2>
+      <p>SwiftLab is a focused resource for iOS developers who want to level up their craft. Every tutorial covers a specific, practical topic with real, runnable code.</p>
+      <p>No padding. Each post gives you something you can ship the same day.</p>
+    </div>
+
+    <div class="info-card">
+      <h2>Posting schedule</h2>
+      <div class="timeline-items">
+        <div class="timeline-row">
+          <div class="tl-dot" style="background:var(--blue);"></div>
+          <div>
+            <div class="timeline-label">Weekly tutorials</div>
+            <div class="timeline-sub">A new deep-dive every Thursday</div>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="tl-dot" style="background:var(--purple);"></div>
+          <div>
+            <div class="timeline-label">Quick tips</div>
+            <div class="timeline-sub">Short posts on Tuesdays when there's something worth sharing</div>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="tl-dot" style="background:var(--green);"></div>
+          <div>
+            <div class="timeline-label">WWDC recaps</div>
+            <div class="timeline-sub">Practical breakdowns of new APIs each June</div>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="tl-dot" style="background:var(--orange);"></div>
+          <div>
+            <div class="timeline-label">Monthly newsletter</div>
+            <div class="timeline-sub">Digest of the best posts and external resources</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Cards -->
-    <div class="about-content">
-
-      <div class="about-card">
-        <h2>What is SwiftLab?</h2>
-        <p>
-          SwiftLab is a focused resource for iOS developers who want to level up their craft.
-          Every tutorial covers a specific, practical topic — custom UI components, animation
-          techniques, architecture patterns, or performance wins — with real, runnable code.
-        </p>
-        <p>
-          No padding, no filler. Each post gives you something you can ship the same day.
-        </p>
+    <div class="info-card full">
+      <h2>Topics covered</h2>
+      <div class="topic-chips">
+        <span class="topic-chip">⬡ SwiftUI</span>
+        <span class="topic-chip">◈ UIKit</span>
+        <span class="topic-chip">◎ Animations &amp; Motion</span>
+        <span class="topic-chip">◆ Design Patterns</span>
+        <span class="topic-chip">⚡ Performance</span>
+        <span class="topic-chip">♿ Accessibility</span>
+        <span class="topic-chip">🔀 Navigation</span>
+        <span class="topic-chip">📡 Networking</span>
+        <span class="topic-chip">🗂 Data Persistence</span>
+        <span class="topic-chip">🧪 Testing</span>
       </div>
-
-      <div class="about-card">
-        <h2>Topics Covered</h2>
-        <div class="topic-list">
-          <div class="topic-item"><span class="dot-badge" style="background:#007AFF"></span>SwiftUI &amp; Combine</div>
-          <div class="topic-item"><span class="dot-badge" style="background:#FF9500"></span>UIKit &amp; AppKit</div>
-          <div class="topic-item"><span class="dot-badge" style="background:#AF52DE"></span>Animations &amp; Motion</div>
-          <div class="topic-item"><span class="dot-badge" style="background:#FF2D55"></span>Design Patterns</div>
-          <div class="topic-item"><span class="dot-badge" style="background:#34C759"></span>Performance &amp; Profiling</div>
-          <div class="topic-item"><span class="dot-badge" style="background:#5856D6"></span>Accessibility</div>
-        </div>
-      </div>
-
-      <div class="about-card">
-        <h2>Tech Stack</h2>
-        <div class="stack-grid">
-          <div class="stack-item"><span class="stack-icon">🔶</span>Swift 6</div>
-          <div class="stack-item"><span class="stack-icon">⬡</span>SwiftUI</div>
-          <div class="stack-item"><span class="stack-icon">◈</span>UIKit</div>
-          <div class="stack-item"><span class="stack-icon">🔨</span>Xcode 16</div>
-          <div class="stack-item"><span class="stack-icon">📱</span>iOS 17+</div>
-          <div class="stack-item"><span class="stack-icon">⚡</span>Instruments</div>
-        </div>
-      </div>
-
-      <div class="about-card">
-        <h2>Posting Schedule</h2>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-text">
-              <strong>Weekly Tutorials</strong>
-              <span>A new deep-dive every Thursday</span>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-dot purple"></div>
-            <div class="timeline-text">
-              <strong>Quick Tips</strong>
-              <span>Short, focused posts on Tuesdays when there's something worth sharing</span>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-dot green"></div>
-            <div class="timeline-text">
-              <strong>WWDC Recaps</strong>
-              <span>Practical breakdowns of new APIs each June</span>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-dot orange"></div>
-            <div class="timeline-text">
-              <strong>Newsletter</strong>
-              <span>Monthly digest of the best posts and external resources</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="about-card cta-card">
-        <h2>Ready to build something great?</h2>
-        <p>Browse over 20 tutorials across SwiftUI, UIKit, animations, and more.</p>
-        <a href="blog.html" class="btn-primary">Browse All Tutorials →</a>
-      </div>
-
     </div>
 
-  </main>
+    <div class="info-card full">
+      <h2>Tech stack</h2>
+      <div class="stack-tiles">
+        <div class="stack-tile"><span class="si">🔶</span>Swift 6</div>
+        <div class="stack-tile"><span class="si">⬡</span>SwiftUI</div>
+        <div class="stack-tile"><span class="si">◈</span>UIKit</div>
+        <div class="stack-tile"><span class="si">🔨</span>Xcode 16</div>
+        <div class="stack-tile"><span class="si">📱</span>iOS 17+</div>
+        <div class="stack-tile"><span class="si">⚡</span>Instruments</div>
+      </div>
+    </div>
+
+    <div class="info-card dark full" style="text-align:center;">
+      <h2>Ready to start building?</h2>
+      <p style="max-width:500px;margin:0 auto 28px;">Over 24 tutorials across SwiftUI, UIKit, animations, and more — all free, all practical.</p>
+      <a href="blog.html" class="btn-pill" style="background:#fff;color:var(--black);display:inline-flex;">Browse All Tutorials <span class="arrow">→</span></a>
+    </div>
+
+  </div>
 
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-logo">
-        <span style="width:26px;height:26px;background:var(--blue);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;">⌘</span>
+        <span style="width:24px;height:24px;background:var(--black);border-radius:6px;display:grid;place-items:center;font-size:12px;color:#fff;">⌘</span>
         SwiftLab
       </div>
       <ul class="footer-links">
@@ -296,7 +127,7 @@
         <li><a href="about.html">About</a></li>
       </ul>
     </div>
-    <div class="footer-copy">© 2026 SwiftLab. Built with ☕ for iOS developers.</div>
+    <div class="footer-copy">© 2026 SwiftLab — iOS development tutorials for everyone.</div>
   </footer>
 
 </body>

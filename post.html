@@ -5,209 +5,79 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Custom Tab Bars with Matched Geometry — SwiftLab</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body { background: #0a0a0f; color: #f5f5f7; overflow-x: hidden; }
-
-    .bg-orbs { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-    .orb { position: absolute; border-radius: 50%; filter: blur(130px); opacity: 0.22; }
-    .orb-1 { width: 500px; height: 500px; background: #007AFF; top: -80px; left: -80px; }
-    .orb-2 { width: 400px; height: 400px; background: #5856D6; top: 40%; right: -100px; }
-    .orb-3 { width: 350px; height: 350px; background: #AF52DE; bottom: 10%; left: 20%; }
-
-    main { position: relative; z-index: 1; }
-
-    .nav {
-      background: rgba(10,10,15,0.65);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .nav-logo, .nav-links a { color: #f5f5f7; }
-    .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,0.1); color: #fff; }
-
-    .post-hero-tag { color: #64b5f6; }
-    .post-hero h1 { color: #f5f5f7; }
-    .post-hero-meta { color: rgba(245,245,247,0.45); border-bottom-color: rgba(255,255,255,0.08); }
-    .post-hero-meta .dot { opacity: 0.3; }
-
-    /* Glass breadcrumb */
-    .breadcrumb {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 24px 24px 0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      color: rgba(245,245,247,0.45);
-    }
-    .breadcrumb a { color: rgba(245,245,247,0.45); transition: color 0.15s; }
-    .breadcrumb a:hover { color: #64b5f6; }
-    .breadcrumb .sep { opacity: 0.3; }
-
-    /* Article body text */
-    .post-content p { color: rgba(245,245,247,0.82); }
-    .post-content li { color: rgba(245,245,247,0.82); }
-    .post-content h2 { color: #f5f5f7; }
-    .post-content h3 { color: #f5f5f7; }
-    .post-content code {
-      background: rgba(255,255,255,0.1);
-      color: #ff79c6;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    /* Code block glass */
-    .code-block {
-      background: rgba(0,0,0,0.55);
-      border: 1px solid rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      position: relative;
-    }
-    .code-block::before {
-      content: 'Swift';
-      position: absolute;
-      top: 10px;
-      right: 16px;
-      font-size: 11px;
-      font-weight: 600;
-      color: rgba(245,245,247,0.3);
-      letter-spacing: 0.5px;
-      font-family: -apple-system, sans-serif;
-    }
-
-    /* Callout glass */
-    .callout {
-      background: rgba(0,122,255,0.1);
-      border-left-color: rgba(0,122,255,0.6);
-      border: 1px solid rgba(0,122,255,0.2);
-      border-left-width: 3px;
-      color: rgba(245,245,247,0.85);
-    }
-    .callout strong { color: #64b5f6; }
-
-    /* Related posts */
-    .related { max-width: 720px; margin: 0 auto; padding: 0 24px 72px; }
-    .related h2 {
-      font-size: 20px;
-      font-weight: 700;
-      color: #f5f5f7;
-      margin-bottom: 20px;
-      padding-top: 32px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-    .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-    .post-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.09);
-      backdrop-filter: blur(20px);
-    }
-    .post-card:hover {
-      background: rgba(255,255,255,0.08);
-      box-shadow: 0 8px 32px rgba(0,122,255,0.1);
-    }
-    .post-card-title { color: #f5f5f7; }
-    .post-card-desc { color: rgba(245,245,247,0.5); }
-    .post-card-meta { color: rgba(245,245,247,0.28); }
-
-    /* Progress bar */
-    .progress-bar {
-      position: fixed;
-      top: 56px;
-      left: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #007AFF, #AF52DE);
-      z-index: 200;
-      transition: width 0.1s linear;
-      width: 0%;
-    }
-
-    .footer { background: rgba(255,255,255,0.03); border-top-color: rgba(255,255,255,0.08); }
-    .footer-logo { color: #f5f5f7; }
-    .footer-links a { color: rgba(245,245,247,0.5); }
-    .footer-links a:hover { color: #64b5f6; }
-    .footer-copy { color: rgba(245,245,247,0.25); border-top-color: rgba(255,255,255,0.06); }
-  </style>
 </head>
 <body>
-
-  <div class="bg-orbs">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-  </div>
 
   <div class="progress-bar" id="progress"></div>
 
   <nav class="nav">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
-        <span class="logo-icon">⌘</span>
+        <span class="icon">⌘</span>
         SwiftLab
       </a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="blog.html" class="active">Tutorials</a></li>
-        <li><a href="about.html" class="hide-mobile">About</a></li>
-        <li><a href="blog.html" class="nav-cta">Browse All</a></li>
+        <li><a href="about.html">About</a></li>
       </ul>
+      <div class="nav-actions">
+        <a href="blog.html" class="btn-pill outline">← All Tutorials</a>
+      </div>
     </div>
   </nav>
 
-  <main>
+  <div class="post-layout">
 
-    <nav class="breadcrumb">
-      <a href="index.html">Home</a>
-      <span class="sep">/</span>
-      <a href="blog.html">Tutorials</a>
-      <span class="sep">/</span>
-      <span>Custom Tab Bars</span>
-    </nav>
-
-    <article>
-      <div class="post-hero">
-        <div class="post-hero-tag">⬡ SwiftUI</div>
-        <h1>Building Custom Tab Bars with SwiftUI &amp; Matched Geometry</h1>
-        <div class="post-hero-meta">
+    <!-- Main article -->
+    <div class="post-main">
+      <div class="post-header">
+        <div class="post-tag-row">
+          <span class="post-tag tag-bg-swiftui">SwiftUI</span>
+          <span class="post-tag" style="background:var(--gray-5);color:var(--gray-2);">iOS 17+</span>
+        </div>
+        <h1>Building Custom Tab Bars with SwiftUI &amp; Matched Geometry Effect</h1>
+        <div class="byline">
           <span>June 12, 2026</span>
-          <span class="dot">·</span>
+          <span class="sep">·</span>
           <span>8 min read</span>
-          <span class="dot">·</span>
-          <span>iOS 17+</span>
+          <span class="sep">·</span>
+          <span>Xcode 15+</span>
         </div>
       </div>
 
-      <div class="post-content">
+      <article>
 
         <p>
-          SwiftUI's built-in <code>TabView</code> is convenient, but it doesn't give you
-          much control over the tab bar's appearance. In this tutorial we'll build a fully
-          custom animated tab bar using <code>matchedGeometryEffect</code> — the same
-          technique behind the fluid indicator animations you see in apps like Fantastical
-          and Craft.
+          SwiftUI's built-in <code>TabView</code> is convenient, but it doesn't give you much control over the tab bar's appearance. In this tutorial we'll build a fully custom animated tab bar using <code>matchedGeometryEffect</code> — the same technique behind the fluid indicator animations you see in apps like Fantastical and Craft.
         </p>
 
         <div class="callout">
-          <strong>Prerequisites:</strong> Xcode 15+, iOS 17+. Familiarity with basic
-          SwiftUI views and <code>@State</code> is assumed.
+          <strong>Prerequisites:</strong> Xcode 15+, iOS 17+. Familiarity with basic SwiftUI views and <code>@State</code> is assumed.
         </div>
 
-        <h2>How matchedGeometryEffect Works</h2>
+        <h2>How matchedGeometryEffect works</h2>
 
         <p>
-          <code>matchedGeometryEffect</code> links two or more views with the same
-          <code>id</code> within a shared <code>Namespace</code>. When one view appears
-          or its geometry changes, SwiftUI automatically interpolates the size and position
-          between the matched views — giving you smooth, physics-based motion for free.
+          <code>matchedGeometryEffect</code> links two or more views with the same <code>id</code> within a shared <code>Namespace</code>. When one view appears or its geometry changes, SwiftUI automatically interpolates the size and position between the matched views — giving you smooth, physics-based motion for free.
         </p>
 
         <p>
-          The key insight: we're not moving a view. We're letting SwiftUI
-          morph a background shape from one tab to another. The shape stays in the view
-          hierarchy; only its position changes.
+          The key insight: we're not <em>moving</em> a view. We're letting SwiftUI morph a background shape from one tab to another. The shape stays in the view hierarchy; only its position changes.
         </p>
 
-        <h2>Step 1 — Define the Tab Model</h2>
+        <h2>Step 1 — Define the tab model</h2>
 
-        <div class="code-block"><pre><span class="kw">enum</span> <span class="type">Tab</span>: <span class="type">String</span>, <span class="type">CaseIterable</span> {
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots">
+              <div class="code-dot dot-r"></div>
+              <div class="code-dot dot-y"></div>
+              <div class="code-dot dot-g"></div>
+            </div>
+            <span class="code-lang">Swift</span>
+          </div>
+          <pre><span class="kw">enum</span> <span class="type">Tab</span>: <span class="type">String</span>, <span class="type">CaseIterable</span> {
     <span class="kw">case</span> home    = <span class="str">"house.fill"</span>
     <span class="kw">case</span> explore = <span class="str">"safari.fill"</span>
     <span class="kw">case</span> library = <span class="str">"books.vertical.fill"</span>
@@ -221,18 +91,25 @@
         <span class="kw">case</span> .profile: <span class="kw">return</span> <span class="str">"Profile"</span>
         }
     }
-}</pre></div>
+}</pre>
+        </div>
 
-        <h2>Step 2 — Build the Tab Bar View</h2>
+        <h2>Step 2 — Build the tab bar view</h2>
 
         <p>
-          The trick is a <code>Namespace</code> and a single <code>RoundedRectangle</code>
-          acting as the indicator. We stamp it with
-          <code>.matchedGeometryEffect(id: "indicator", in: namespace)</code> on whichever
-          tab is selected. When selection changes, SwiftUI slides the shape across.
+          The trick is a <code>Namespace</code> and a single <code>RoundedRectangle</code> acting as the indicator. We stamp it with <code>.matchedGeometryEffect(id: "indicator", in: namespace)</code> on whichever tab is selected. When selection changes, SwiftUI slides the shape across automatically.
         </p>
 
-        <div class="code-block"><pre><span class="kw">struct</span> <span class="type">CustomTabBar</span>: <span class="type">View</span> {
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots">
+              <div class="code-dot dot-r"></div>
+              <div class="code-dot dot-y"></div>
+              <div class="code-dot dot-g"></div>
+            </div>
+            <span class="code-lang">Swift</span>
+          </div>
+          <pre><span class="kw">struct</span> <span class="type">CustomTabBar</span>: <span class="type">View</span> {
     <span class="kw">@Binding var</span> <span class="prop">selection</span>: <span class="type">Tab</span>
     <span class="kw">@Namespace private var</span> <span class="prop">namespace</span>
 
@@ -256,15 +133,25 @@
         .background(
             <span class="type">RoundedRectangle</span>(cornerRadius: <span class="num">28</span>)
                 .fill(.ultraThinMaterial)
-                .shadow(color: .black.opacity(<span class="num">0.2</span>), radius: <span class="num">20</span>)
+                .shadow(color: .black.opacity(<span class="num">0.12</span>), radius: <span class="num">20</span>)
         )
         .padding(.horizontal, <span class="num">20</span>)
     }
-}</pre></div>
+}</pre>
+        </div>
 
-        <h2>Step 3 — The Tab Item</h2>
+        <h2>Step 3 — The tab item</h2>
 
-        <div class="code-block"><pre><span class="kw">struct</span> <span class="type">TabItem</span>: <span class="type">View</span> {
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots">
+              <div class="code-dot dot-r"></div>
+              <div class="code-dot dot-y"></div>
+              <div class="code-dot dot-g"></div>
+            </div>
+            <span class="code-lang">Swift</span>
+          </div>
+          <pre><span class="kw">struct</span> <span class="type">TabItem</span>: <span class="type">View</span> {
     <span class="kw">let</span> <span class="prop">tab</span>: <span class="type">Tab</span>
     <span class="kw">let</span> <span class="prop">isSelected</span>: <span class="type">Bool</span>
     <span class="kw">var</span> <span class="prop">namespace</span>: <span class="type">Namespace.ID</span>
@@ -274,7 +161,7 @@
             <span class="type">ZStack</span> {
                 <span class="kw">if</span> isSelected {
                     <span class="type">Capsule</span>()
-                        .fill(<span class="type">Color</span>.accentColor.opacity(<span class="num">0.18</span>))
+                        .fill(<span class="type">Color</span>.accentColor.opacity(<span class="num">0.15</span>))
                         .frame(width: <span class="num">52</span>, height: <span class="num">32</span>)
                         .matchedGeometryEffect(id: <span class="str">"indicator"</span>, <span class="kw">in</span>: namespace)
                 }
@@ -289,16 +176,25 @@
         }
         .frame(maxWidth: .infinity)
     }
-}</pre></div>
+}</pre>
+        </div>
 
-        <h2>Step 4 — Wire it into ContentView</h2>
+        <h2>Step 4 — Wire it up</h2>
 
-        <div class="code-block"><pre><span class="kw">struct</span> <span class="type">ContentView</span>: <span class="type">View</span> {
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots">
+              <div class="code-dot dot-r"></div>
+              <div class="code-dot dot-y"></div>
+              <div class="code-dot dot-g"></div>
+            </div>
+            <span class="code-lang">Swift</span>
+          </div>
+          <pre><span class="kw">struct</span> <span class="type">ContentView</span>: <span class="type">View</span> {
     <span class="kw">@State private var</span> <span class="prop">selectedTab</span>: <span class="type">Tab</span> = .home
 
     <span class="kw">var</span> <span class="prop">body</span>: <span class="kw">some</span> <span class="type">View</span> {
         <span class="type">ZStack</span>(alignment: .bottom) {
-            <span class="cm">// Your page content here</span>
             <span class="type">TabContent</span>(selection: selectedTab)
                 .ignoresSafeArea()
 
@@ -306,63 +202,83 @@
                 .padding(.bottom, <span class="num">12</span>)
         }
     }
-}</pre></div>
-
-        <div class="callout">
-          <strong>Tip:</strong> Use <code>.spring(response:dampingFraction:)</code>
-          rather than <code>.easeInOut</code> for the selection animation — it gives you
-          that characteristic iOS "bounce" that feels native and alive.
+}</pre>
         </div>
 
-        <h2>Going Further</h2>
+        <div class="callout">
+          <strong>Tip:</strong> Use <code>.spring(response:dampingFraction:)</code> rather than <code>.easeInOut</code> for the animation. A lower <code>dampingFraction</code> (0.6–0.7) gives the characteristic iOS bounce that feels native.
+        </div>
+
+        <h2>Going further</h2>
 
         <ul>
-          <li>Add a badge overlay on the tab item using <code>.overlay</code> with a <code>Circle</code></li>
+          <li>Add a badge overlay using <code>.overlay</code> with a <code>Circle</code></li>
           <li>Animate the icon with <code>.symbolEffect(.bounce)</code> on selection (iOS 17+)</li>
-          <li>Swap the <code>Capsule</code> indicator for a top-edge underline by adjusting the frame and using a <code>Rectangle</code> pinned to the bottom</li>
+          <li>Swap the <code>Capsule</code> indicator for a top-edge underline using a pinned <code>Rectangle</code></li>
           <li>Support Dynamic Type by using relative font sizes and flexible widths</li>
         </ul>
 
-        <p>
-          The full project is available to copy above. Try tweaking the spring parameters —
-          a higher <code>dampingFraction</code> (close to 1.0) gives a crisp snap, while
-          lower values (0.5–0.6) feel more playful and bouncy.
-        </p>
+        <p>Try tweaking the spring parameters — a higher <code>dampingFraction</code> (close to 1.0) gives a crisp snap, while lower values feel more playful. There's no single right answer; match the character of your app.</p>
 
-      </div>
-    </article>
-
-    <!-- Related posts -->
-    <div class="related">
-      <h2>More Tutorials</h2>
-      <div class="related-grid">
-        <a href="post.html" class="post-card">
-          <div class="post-card-thumb thumb-anim" style="height:120px;font-size:36px;">✨</div>
-          <div class="post-card-body">
-            <span class="post-tag tag-anim">Animations</span>
-            <div class="post-card-title">Spring Animations Deep Dive</div>
-            <div class="post-card-desc">Master iOS spring physics for delightful motion.</div>
-            <div class="post-card-meta"><span>Jun 5, 2026</span><span>6 min</span></div>
-          </div>
-        </a>
-        <a href="post.html" class="post-card">
-          <div class="post-card-thumb thumb-swiftui" style="height:120px;font-size:36px;">🌊</div>
-          <div class="post-card-body">
-            <span class="post-tag tag-swiftui">SwiftUI</span>
-            <div class="post-card-title">GeometryReader Without the Pain</div>
-            <div class="post-card-desc">When to use GeometryReader vs PreferenceKey.</div>
-            <div class="post-card-meta"><span>May 10, 2026</span><span>7 min</span></div>
-          </div>
-        </a>
-      </div>
+      </article>
     </div>
 
-  </main>
+    <!-- Sidebar -->
+    <aside class="post-sidebar">
+
+      <div class="sidebar-card">
+        <h3>In this tutorial</h3>
+        <ul class="toc-list">
+          <li><a href="#">How matchedGeometryEffect works</a></li>
+          <li><a href="#">Step 1 — Tab model</a></li>
+          <li><a href="#">Step 2 — Tab bar view</a></li>
+          <li><a href="#">Step 3 — Tab item</a></li>
+          <li><a href="#">Step 4 — Wire it up</a></li>
+          <li><a href="#">Going further</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>More tutorials</h3>
+        <div class="related-mini">
+          <a href="post.html" class="rm-item" style="text-decoration:none;">
+            <div class="rm-thumb" style="background:#0f0f23;">✨</div>
+            <div>
+              <div class="rm-title">Spring Animations Deep Dive</div>
+              <div class="rm-meta">Animations · 6 min</div>
+            </div>
+          </a>
+          <a href="post.html" class="rm-item" style="text-decoration:none;">
+            <div class="rm-thumb" style="background:#1D1D1F;">📐</div>
+            <div>
+              <div class="rm-title">GeometryReader Without the Pain</div>
+              <div class="rm-meta">SwiftUI · 7 min</div>
+            </div>
+          </a>
+          <a href="post.html" class="rm-item" style="text-decoration:none;">
+            <div class="rm-thumb" style="background:#160a2e;">🔀</div>
+            <div>
+              <div class="rm-title">NavigationStack vs NavigationView</div>
+              <div class="rm-meta">SwiftUI · 7 min</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="sidebar-card" style="background:var(--black);border-color:var(--black);">
+        <h3 style="color:rgba(255,255,255,0.45);">Newsletter</h3>
+        <p style="font-size:14px;color:rgba(255,255,255,0.7);line-height:1.5;margin-bottom:14px;">New tutorials every week. No spam.</p>
+        <input type="email" placeholder="your@email.com" style="width:100%;padding:9px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:#fff;font-size:14px;font-family:inherit;outline:none;margin-bottom:8px;" />
+        <button style="width:100%;padding:9px;border-radius:8px;border:none;background:#fff;color:var(--black);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">Subscribe →</button>
+      </div>
+
+    </aside>
+  </div>
 
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-logo">
-        <span style="width:26px;height:26px;background:var(--blue);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;">⌘</span>
+        <span style="width:24px;height:24px;background:var(--black);border-radius:6px;display:grid;place-items:center;font-size:12px;color:#fff;">⌘</span>
         SwiftLab
       </div>
       <ul class="footer-links">
@@ -371,15 +287,14 @@
         <li><a href="about.html">About</a></li>
       </ul>
     </div>
-    <div class="footer-copy">© 2026 SwiftLab. Built with ☕ for iOS developers.</div>
+    <div class="footer-copy">© 2026 SwiftLab — iOS development tutorials for everyone.</div>
   </footer>
 
   <script>
     const bar = document.getElementById('progress');
     window.addEventListener('scroll', () => {
       const h = document.documentElement;
-      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-      bar.style.width = pct + '%';
+      bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
     });
   </script>
 

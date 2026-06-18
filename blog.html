@@ -5,342 +5,236 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tutorials — SwiftLab</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body { background: #0a0a0f; color: #f5f5f7; overflow-x: hidden; }
-
-    .bg-orbs { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-    .orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.28; }
-    .orb-1 { width: 600px; height: 600px; background: #5856D6; top: -100px; right: -100px; }
-    .orb-2 { width: 400px; height: 400px; background: #007AFF; bottom: 200px; left: -80px; }
-    .orb-3 { width: 350px; height: 350px; background: #AF52DE; bottom: -80px; right: 20%; opacity: 0.2; }
-
-    main { position: relative; z-index: 1; }
-
-    .nav {
-      background: rgba(10,10,15,0.65);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .nav-logo, .nav-links a { color: #f5f5f7; }
-    .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,0.1); color: #fff; }
-
-    .page-header h1 { color: #f5f5f7; }
-    .page-header p { color: rgba(245,245,247,0.55); }
-
-    .section-title { color: #f5f5f7; }
-
-    /* Glass filter bar */
-    .filter-btn {
-      background: rgba(255,255,255,0.06);
-      border-color: rgba(255,255,255,0.12);
-      color: rgba(245,245,247,0.6);
-    }
-    .filter-btn:hover { border-color: rgba(0,122,255,0.5); color: #64b5f6; background: rgba(0,122,255,0.1); }
-    .filter-btn.active { background: rgba(0,122,255,0.25); border-color: rgba(0,122,255,0.5); color: #64b5f6; }
-
-    /* Glass cards */
-    .post-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.09);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-    }
-    .post-card:hover {
-      background: rgba(255,255,255,0.09);
-      box-shadow: 0 8px 40px rgba(0,122,255,0.12), 0 0 0 1px rgba(255,255,255,0.14);
-      transform: translateY(-3px);
-    }
-    .post-card-title { color: #f5f5f7; }
-    .post-card-desc { color: rgba(245,245,247,0.5); }
-    .post-card-meta { color: rgba(245,245,247,0.28); }
-
-    .section-link { color: #64b5f6; }
-
-    /* Search bar */
-    .search-wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px 32px;
-    }
-    .search-bar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 14px;
-      padding: 10px 16px;
-      backdrop-filter: blur(20px);
-    }
-    .search-bar input {
-      flex: 1;
-      background: none;
-      border: none;
-      outline: none;
-      font-size: 15px;
-      color: #f5f5f7;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    .search-bar input::placeholder { color: rgba(245,245,247,0.35); }
-    .search-icon { color: rgba(245,245,247,0.4); font-size: 16px; }
-
-    /* Category sections */
-    .cat-section { margin-bottom: 56px; }
-    .cat-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .cat-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-    }
-    .badge-swiftui { background: rgba(0,122,255,0.18); border: 1px solid rgba(0,122,255,0.3); color: #64b5f6; }
-    .badge-uikit   { background: rgba(255,149,0,0.18); border: 1px solid rgba(255,149,0,0.3); color: #ffb74d; }
-    .badge-anim    { background: rgba(175,82,222,0.18); border: 1px solid rgba(175,82,222,0.3); color: #ce93d8; }
-    .badge-design  { background: rgba(255,45,85,0.18); border: 1px solid rgba(255,45,85,0.3); color: #f48fb1; }
-    .badge-perf    { background: rgba(52,199,89,0.18); border: 1px solid rgba(52,199,89,0.3); color: #81c784; }
-
-    .cat-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.1), transparent); }
-
-    .footer { background: rgba(255,255,255,0.03); border-top-color: rgba(255,255,255,0.08); }
-    .footer-logo { color: #f5f5f7; }
-    .footer-links a { color: rgba(245,245,247,0.5); }
-    .footer-links a:hover { color: #64b5f6; }
-    .footer-copy { color: rgba(245,245,247,0.25); border-top-color: rgba(255,255,255,0.06); }
-  </style>
 </head>
 <body>
-
-  <div class="bg-orbs">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-  </div>
 
   <nav class="nav">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
-        <span class="logo-icon">⌘</span>
+        <span class="icon">⌘</span>
         SwiftLab
       </a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="blog.html" class="active">Tutorials</a></li>
-        <li><a href="about.html" class="hide-mobile">About</a></li>
-        <li><a href="blog.html" class="nav-cta">Browse All</a></li>
+        <li><a href="about.html">About</a></li>
       </ul>
+      <div class="nav-actions">
+        <a href="#" class="btn-pill dark">Subscribe <span class="arrow">↗</span></a>
+      </div>
     </div>
   </nav>
 
-  <main>
+  <!-- Page hero -->
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="section-eyebrow" style="margin-bottom:12px;">All Tutorials</div>
+      <h1>Learn iOS development,<br>one tutorial at a time.</h1>
+      <p>Practical guides on SwiftUI, UIKit, animations, design patterns, and performance.</p>
+    </div>
+  </div>
 
-    <div class="page-header">
-      <h1>All Tutorials</h1>
-      <p>Practical iOS development guides — pick a topic and start building.</p>
+  <!-- Filters -->
+  <div class="filter-row">
+    <button class="filter-chip active" onclick="setFilter(this,'all')">All</button>
+    <button class="filter-chip" onclick="setFilter(this,'swiftui')">⬡ SwiftUI</button>
+    <button class="filter-chip" onclick="setFilter(this,'uikit')">◈ UIKit</button>
+    <button class="filter-chip" onclick="setFilter(this,'animations')">◎ Animations</button>
+    <button class="filter-chip" onclick="setFilter(this,'design')">◆ Design</button>
+    <button class="filter-chip" onclick="setFilter(this,'performance')">⚡ Performance</button>
+  </div>
+
+  <!-- All posts -->
+  <div class="section" style="padding-top:48px;">
+
+    <!-- SwiftUI -->
+    <div class="cat-group" data-cat="swiftui" style="margin-bottom:56px;">
+      <div class="section-header">
+        <div>
+          <div class="section-eyebrow">SwiftUI</div>
+          <h2 class="section-title">Declarative UI</h2>
+        </div>
+        <span style="font-size:14px;color:var(--gray-3);font-weight:600;">9 tutorials</span>
+      </div>
+      <div class="grid-3">
+        <a href="post.html" class="card">
+          <div class="card-thumb swiftui"><span class="icon">🧩</span></div>
+          <div class="card-body">
+            <div class="card-tag tag-swiftui">SwiftUI</div>
+            <div class="card-title">Custom Tab Bars with Matched Geometry</div>
+            <div class="card-desc">Build fluid animated tab bars using matchedGeometryEffect with namespace coordination.</div>
+            <div class="card-meta"><span>Jun 12, 2026</span><span>8 min</span></div>
+          </div>
+        </a>
+        <a href="post.html" class="card">
+          <div class="card-thumb swiftui"><span class="icon">🌊</span></div>
+          <div class="card-body">
+            <div class="card-tag tag-swiftui">SwiftUI</div>
+            <div class="card-title">Mastering the SwiftUI Environment</div>
+            <div class="card-desc">@Environment, @EnvironmentObject, and custom environment keys explained clearly.</div>
+            <div class="card-meta"><span>May 22, 2026</span><span>9 min</span></div>
+          </div>
+        </a>
+        <a href="post.html" class="card">
+          <div class="card-thumb swiftui"><span class="icon">📐</span></div>
+          <div class="card-body">
+            <div class="card-tag tag-swiftui">SwiftUI</div>
+            <div class="card-title">GeometryReader Without the Pain</div>
+            <div class="card-desc">When to use GeometryReader vs PreferenceKey for layout calculations.</div>
+            <div class="card-meta"><span>May 10, 2026</span><span>7 min</span></div>
+          </div>
+        </a>
+      </div>
     </div>
 
-    <!-- Search -->
-    <div class="search-wrap">
-      <div class="search-bar">
-        <span class="search-icon">⌕</span>
-        <input type="text" placeholder="Search tutorials…" />
+    <!-- UIKit -->
+    <div class="cat-group" data-cat="uikit" style="margin-bottom:56px;">
+      <div class="section-header">
+        <div>
+          <div class="section-eyebrow">UIKit</div>
+          <h2 class="section-title">Imperative UI</h2>
+        </div>
+        <span style="font-size:14px;color:var(--gray-3);font-weight:600;">7 tutorials</span>
+      </div>
+      <div class="grid-3">
+        <a href="post.html" class="card">
+          <div class="card-thumb uikit"><span class="icon">⚙️</span></div>
+          <div class="card-body">
+            <div class="card-tag tag-uikit">UIKit</div>
+            <div class="card-title">Custom UICollectionView Layouts</div>
+            <div class="card-desc">Build Pinterest-style waterfall grids and card stacks from scratch.</div>
+            <div class="card-meta"><span>Jun 10, 2026</span><span>10 min</span></div>
+          </div>
+        </a>
+        <a href="post.html" class="card">
+          <div class="card-thumb uikit"><span class="icon">🔲</span></div>
+          <div class="card-body">
+            <div class="card-tag tag-uikit">UIKit</div>
+            <div class="card-title">Diffable Data Sources Explained</div>
+            <div class="card-desc">Modern table and collection view updates with NSDiffableDataSourceSnapshot.</div>
+            <div class="card-meta"><span>Apr 28, 2026</span><span>8 min</span></div>
+          </div>
+        </a>
+        <a href="post.html" class="card">
+          <div class="card-thumb uikit"><span class="icon">🏗️</span></div>
+          <div class="card-body">
+            <div class="card-tag tag-uikit">UIKit</div>
+            <div class="card-title">Compositional Layout Cookbook</div>
+            <div class="card-desc">Common layout recipes using UICollectionViewCompositionalLayout.</div>
+            <div class="card-meta"><span>Apr 14, 2026</span><span>12 min</span></div>
+          </div>
+        </a>
       </div>
     </div>
 
-    <!-- Filter bar -->
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="setFilter(this,'all')">All</button>
-      <button class="filter-btn" onclick="setFilter(this,'swiftui')">SwiftUI</button>
-      <button class="filter-btn" onclick="setFilter(this,'uikit')">UIKit</button>
-      <button class="filter-btn" onclick="setFilter(this,'animations')">Animations</button>
-      <button class="filter-btn" onclick="setFilter(this,'design')">Design</button>
-      <button class="filter-btn" onclick="setFilter(this,'performance')">Performance</button>
+    <!-- Animations -->
+    <div class="cat-group" data-cat="animations" style="margin-bottom:56px;">
+      <div class="section-header">
+        <div>
+          <div class="section-eyebrow">Animations</div>
+          <h2 class="section-title">Motion & feel</h2>
+        </div>
+        <span style="font-size:14px;color:var(--gray-3);font-weight:600;">5 tutorials</span>
+      </div>
+      <div class="grid-3">
+        <a href="post.html" class="card">
+          <div class="card-thumb anim"><span class="icon">✨</span></div>
+          <div class="card-body">
+            <div class="card-tag tag-anim">Animations</div>
+            <div class="card-title">Spring Animations Deep Dive</div>
+            <div class="card-desc">Master iOS spring physics — damping, stiffness, and why they matter for feel.</div>
+            <div class="card-meta"><span>Jun 5, 2026</span><span>6 min</span></div>
+          </div>
+        </a>
+        <a href="post.html" class="card">
+          <div class="card-thumb anim"><span class="icon">🔄</span></div>
+          <div class="card-body">
+            <div class="card-tag tag-anim">Animations</div>
+            <div class="card-title">Custom View Transitions</div>
+            <div class="card-desc">Build custom push and present transitions from scratch with UIViewControllerAnimatedTransitioning.</div>
+            <div class="card-meta"><span>May 18, 2026</span><span>11 min</span></div>
+          </div>
+        </a>
+        <a href="post.html" class="card">
+          <div class="card-thumb anim"><span class="icon">🎞️</span></div>
+          <div class="card-body">
+            <div class="card-tag tag-anim">Animations</div>
+            <div class="card-title">Core Animation Layer Tricks</div>
+            <div class="card-desc">CALayer, CABasicAnimation, and CAKeyframeAnimation for silky GPU animations.</div>
+            <div class="card-meta"><span>May 4, 2026</span><span>9 min</span></div>
+          </div>
+        </a>
+      </div>
     </div>
 
-    <div class="section" style="padding-top:0;">
-
-      <!-- SwiftUI -->
-      <div class="cat-section" data-cat="swiftui">
-        <div class="cat-header">
-          <span class="cat-badge badge-swiftui">⬡ SwiftUI</span>
-          <div class="cat-line"></div>
+    <!-- Design -->
+    <div class="cat-group" data-cat="design" style="margin-bottom:56px;">
+      <div class="section-header">
+        <div>
+          <div class="section-eyebrow">Design Patterns</div>
+          <h2 class="section-title">Architecture & UX</h2>
         </div>
-        <div class="posts-grid">
-          <a href="post.html" class="post-card">
-            <div class="post-card-thumb thumb-swiftui">🧩</div>
-            <div class="post-card-body">
-              <span class="post-tag tag-swiftui">SwiftUI</span>
-              <div class="post-card-title">Custom Tab Bars with Matched Geometry</div>
-              <div class="post-card-desc">Build fluid, animated tab bars using matchedGeometryEffect with namespace coordination.</div>
-              <div class="post-card-meta"><span>Jun 12, 2026</span><span>8 min</span></div>
-            </div>
-          </a>
-          <a href="post.html" class="post-card">
-            <div class="post-card-thumb thumb-swiftui" style="font-size:40px;">🌊</div>
-            <div class="post-card-body">
-              <span class="post-tag tag-swiftui">SwiftUI</span>
-              <div class="post-card-title">Mastering the SwiftUI Environment</div>
-              <div class="post-card-desc">@Environment, @EnvironmentObject, and custom environment keys explained clearly.</div>
-              <div class="post-card-meta"><span>May 22, 2026</span><span>9 min</span></div>
-            </div>
-          </a>
-          <a href="post.html" class="post-card">
-            <div class="post-card-thumb thumb-swiftui" style="font-size:40px;">📐</div>
-            <div class="post-card-body">
-              <span class="post-tag tag-swiftui">SwiftUI</span>
-              <div class="post-card-title">GeometryReader Without the Pain</div>
-              <div class="post-card-desc">When to use GeometryReader vs PreferenceKey for layout calculations.</div>
-              <div class="post-card-meta"><span>May 10, 2026</span><span>7 min</span></div>
-            </div>
-          </a>
-        </div>
+        <span style="font-size:14px;color:var(--gray-3);font-weight:600;">4 tutorials</span>
       </div>
-
-      <!-- UIKit -->
-      <div class="cat-section" data-cat="uikit">
-        <div class="cat-header">
-          <span class="cat-badge badge-uikit">◈ UIKit</span>
-          <div class="cat-line"></div>
-        </div>
-        <div class="posts-grid">
-          <a href="post.html" class="post-card">
-            <div class="post-card-thumb thumb-uikit">⚙️</div>
-            <div class="post-card-body">
-              <span class="post-tag tag-uikit">UIKit</span>
-              <div class="post-card-title">Custom UICollectionView Layouts</div>
-              <div class="post-card-desc">Build Pinterest-style waterfall grids and card stacks from scratch with UICollectionViewLayout.</div>
-              <div class="post-card-meta"><span>Jun 10, 2026</span><span>10 min</span></div>
-            </div>
-          </a>
-          <a href="post.html" class="post-card">
-            <div class="post-card-thumb thumb-uikit" style="font-size:40px;">🔲</div>
-            <div class="post-card-body">
-              <span class="post-tag tag-uikit">UIKit</span>
-              <div class="post-card-title">Diffable Data Sources Explained</div>
-              <div class="post-card-desc">Modern table and collection view updates with NSDiffableDataSourceSnapshot.</div>
-              <div class="post-card-meta"><span>Apr 28, 2026</span><span>8 min</span></div>
-            </div>
-          </a>
-          <a href="post.html" class="post-card">
-            <div class="post-card-thumb thumb-uikit" style="font-size:40px;">🏗️</div>
-            <div class="post-card-body">
-              <span class="post-tag tag-uikit">UIKit</span>
-              <div class="post-card-title">Compositional Layout Cookbook</div>
-              <div class="post-card-desc">Common layout recipes using UICollectionViewCompositionalLayout.</div>
-              <div class="post-card-meta"><span>Apr 14, 2026</span><span>12 min</span></div>
-            </div>
-          </a>
-        </div>
+      <div class="grid-2">
+        <a href="post.html" class="card">
+          <div class="card-thumb design"><span class="icon">🎨</span></div>
+          <div class="card-body">
+            <div class="card-tag tag-design">Design</div>
+            <div class="card-title">Haptic Feedback Patterns in iOS</div>
+            <div class="card-desc">When and how to use UIFeedbackGenerator for interactions that feel right.</div>
+            <div class="card-meta"><span>May 28, 2026</span><span>4 min</span></div>
+          </div>
+        </a>
+        <a href="post.html" class="card">
+          <div class="card-thumb design"><span class="icon">🧱</span></div>
+          <div class="card-body">
+            <div class="card-tag tag-design">Design</div>
+            <div class="card-title">MVVM in SwiftUI — A Practical Guide</div>
+            <div class="card-desc">Structure your SwiftUI apps with proper separation of concerns and testable ViewModels.</div>
+            <div class="card-meta"><span>Apr 7, 2026</span><span>10 min</span></div>
+          </div>
+        </a>
       </div>
-
-      <!-- Animations -->
-      <div class="cat-section" data-cat="animations">
-        <div class="cat-header">
-          <span class="cat-badge badge-anim">◎ Animations</span>
-          <div class="cat-line"></div>
-        </div>
-        <div class="posts-grid">
-          <a href="post.html" class="post-card">
-            <div class="post-card-thumb thumb-anim">✨</div>
-            <div class="post-card-body">
-              <span class="post-tag tag-anim">Animations</span>
-              <div class="post-card-title">Spring Animations Deep Dive</div>
-              <div class="post-card-desc">Master iOS spring physics — damping, stiffness, and why they matter for feel.</div>
-              <div class="post-card-meta"><span>Jun 5, 2026</span><span>6 min</span></div>
-            </div>
-          </a>
-          <a href="post.html" class="post-card">
-            <div class="post-card-thumb thumb-anim" style="font-size:40px;">🔄</div>
-            <div class="post-card-body">
-              <span class="post-tag tag-anim">Animations</span>
-              <div class="post-card-title">Custom View Transitions with UIViewControllerAnimatedTransitioning</div>
-              <div class="post-card-desc">Build custom push and present transitions from scratch.</div>
-              <div class="post-card-meta"><span>May 18, 2026</span><span>11 min</span></div>
-            </div>
-          </a>
-          <a href="post.html" class="post-card">
-            <div class="post-card-thumb thumb-anim" style="font-size:40px;">🎞️</div>
-            <div class="post-card-body">
-              <span class="post-tag tag-anim">Animations</span>
-              <div class="post-card-title">Core Animation Layer Tricks</div>
-              <div class="post-card-desc">CALayer, CABasicAnimation, and CAKeyframeAnimation for silky GPU animations.</div>
-              <div class="post-card-meta"><span>May 4, 2026</span><span>9 min</span></div>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- Design -->
-      <div class="cat-section" data-cat="design">
-        <div class="cat-header">
-          <span class="cat-badge badge-design">◆ Design Patterns</span>
-          <div class="cat-line"></div>
-        </div>
-        <div class="posts-grid two-col">
-          <a href="post.html" class="post-card">
-            <div class="post-card-thumb thumb-design">🎨</div>
-            <div class="post-card-body">
-              <span class="post-tag tag-design">Design</span>
-              <div class="post-card-title">Haptic Feedback Patterns in iOS</div>
-              <div class="post-card-desc">When and how to use UIFeedbackGenerator for interactions that feel right.</div>
-              <div class="post-card-meta"><span>May 28, 2026</span><span>4 min</span></div>
-            </div>
-          </a>
-          <a href="post.html" class="post-card">
-            <div class="post-card-thumb thumb-design" style="font-size:40px;">🧱</div>
-            <div class="post-card-body">
-              <span class="post-tag tag-design">Design</span>
-              <div class="post-card-title">MVVM in SwiftUI — A Practical Guide</div>
-              <div class="post-card-desc">Structure your SwiftUI apps with proper separation of concerns and testable ViewModels.</div>
-              <div class="post-card-meta"><span>Apr 7, 2026</span><span>10 min</span></div>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- Performance -->
-      <div class="cat-section" data-cat="performance">
-        <div class="cat-header">
-          <span class="cat-badge badge-perf">⚡ Performance</span>
-          <div class="cat-line"></div>
-        </div>
-        <div class="posts-grid two-col">
-          <a href="post.html" class="post-card">
-            <div class="post-card-thumb thumb-nav">🚀</div>
-            <div class="post-card-body">
-              <span class="post-tag tag-nav">Performance</span>
-              <div class="post-card-title">Profiling SwiftUI with Instruments</div>
-              <div class="post-card-desc">Hunt down body redraws and expensive view updates with the SwiftUI instrument template.</div>
-              <div class="post-card-meta"><span>Mar 25, 2026</span><span>8 min</span></div>
-            </div>
-          </a>
-          <a href="post.html" class="post-card">
-            <div class="post-card-thumb thumb-haptics" style="font-size:40px;">💾</div>
-            <div class="post-card-body">
-              <span class="post-tag tag-haptics">Performance</span>
-              <div class="post-card-title">Image Loading &amp; Caching Strategies</div>
-              <div class="post-card-desc">NSCache, prefetching, and avoiding hitches when scrolling long image lists.</div>
-              <div class="post-card-meta"><span>Mar 12, 2026</span><span>7 min</span></div>
-            </div>
-          </a>
-        </div>
-      </div>
-
     </div>
 
-  </main>
+    <!-- Performance -->
+    <div class="cat-group" data-cat="performance" style="margin-bottom:56px;">
+      <div class="section-header">
+        <div>
+          <div class="section-eyebrow">Performance</div>
+          <h2 class="section-title">Speed & efficiency</h2>
+        </div>
+        <span style="font-size:14px;color:var(--gray-3);font-weight:600;">3 tutorials</span>
+      </div>
+      <div class="grid-2">
+        <a href="post.html" class="card">
+          <div class="card-thumb perf"><span class="icon">🚀</span></div>
+          <div class="card-body">
+            <div class="card-tag tag-perf">Performance</div>
+            <div class="card-title">Profiling SwiftUI with Instruments</div>
+            <div class="card-desc">Hunt down body redraws and expensive view updates with the SwiftUI instrument template.</div>
+            <div class="card-meta"><span>Mar 25, 2026</span><span>8 min</span></div>
+          </div>
+        </a>
+        <a href="post.html" class="card">
+          <div class="card-thumb perf"><span class="icon">💾</span></div>
+          <div class="card-body">
+            <div class="card-tag tag-perf">Performance</div>
+            <div class="card-title">Image Loading &amp; Caching Strategies</div>
+            <div class="card-desc">NSCache, prefetching, and avoiding hitches when scrolling long image lists.</div>
+            <div class="card-meta"><span>Mar 12, 2026</span><span>7 min</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
 
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-logo">
-        <span style="width:26px;height:26px;background:var(--blue);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;">⌘</span>
+        <span style="width:24px;height:24px;background:var(--black);border-radius:6px;display:grid;place-items:center;font-size:12px;color:#fff;">⌘</span>
         SwiftLab
       </div>
       <ul class="footer-links">
@@ -349,15 +243,15 @@
         <li><a href="about.html">About</a></li>
       </ul>
     </div>
-    <div class="footer-copy">© 2026 SwiftLab. Built with ☕ for iOS developers.</div>
+    <div class="footer-copy">© 2026 SwiftLab — iOS development tutorials for everyone.</div>
   </footer>
 
   <script>
     function setFilter(btn, cat) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      document.querySelectorAll('.cat-section').forEach(s => {
-        s.style.display = (cat === 'all' || s.dataset.cat === cat) ? '' : 'none';
+      document.querySelectorAll('.cat-group').forEach(g => {
+        g.style.display = (cat === 'all' || g.dataset.cat === cat) ? '' : 'none';
       });
     }
   </script>
